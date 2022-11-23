@@ -60,13 +60,13 @@ class QUIC_EXPORT_PRIVATE QuicVersionManager {
   // quic_disable_version_rfcv1 flag
   bool disable_version_rfcv1_ = true;
   // quic_disable_version_draft_29 flag
-  bool disable_version_draft_29_ = true;
+  bool disable_version_draft_29_ = false;
   // quic_disable_version_q050 flag
   bool disable_version_q050_ = true;
   // quic_disable_version_q046 flag
-  bool disable_version_q046_ = true;
+  bool disable_version_q046_ = false;
   // quic_disable_version_q043 flag
-  bool disable_version_q043_ = true;
+  bool disable_version_q043_ = false;
 
   // The list of versions that may be supported.
   const ParsedQuicVersionVector allowed_supported_versions_;
