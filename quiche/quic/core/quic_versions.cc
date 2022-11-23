@@ -446,9 +446,9 @@ ParsedQuicVersionVector FilterSupportedVersions(
         filtered_versions.push_back(version);
       }
     } else if (version == ParsedQuicVersion::Q046()) {
-      if (!GetQuicReloadableFlag(quic_disable_version_q046)) {
+      //if (!GetQuicReloadableFlag(quic_disable_version_q046)) {
         filtered_versions.push_back(version);
-      }
+      //}
     } else if (version == ParsedQuicVersion::Q043()) {
       if (!GetQuicReloadableFlag(quic_disable_version_q043)) {
         filtered_versions.push_back(version);

@@ -29,7 +29,7 @@
 namespace quic {
 
 namespace {
-static const int64_t kDefaultRetransmissionTimeMs = 500;
+static const int64_t kDefaultRetransmissionTimeMs = 200;
 
 // Ensure the handshake timer isnt't faster than 10ms.
 // This limits the tenth retransmitted packet to 10s after the initial CHLO.
@@ -37,7 +37,7 @@ static const int64_t kMinHandshakeTimeoutMs = 10;
 
 // Sends up to two tail loss probes before firing an RTO,
 // per draft RFC draft-dukkipati-tcpm-tcp-loss-probe.
-static const size_t kDefaultMaxTailLossProbes = 2;
+static const size_t kDefaultMaxTailLossProbes = 5;
 
 // The multiplier for calculating PTO timeout before any RTT sample is
 // available.
@@ -53,10 +53,10 @@ inline bool ShouldForceRetransmission(TransmissionType transmission_type) {
 // If pacing rate is accurate, > 2 burst token is not likely to help first ACK
 // to arrive earlier, and overly large burst token could cause incast packet
 // losses.
-static const uint32_t kConservativeUnpacedBurst = 2;
+static const uint32_t kConservativeUnpacedBurst = 5;
 
 // The default number of PTOs to trigger path degrading.
-static const uint32_t kNumProbeTimeoutsForPathDegradingDelay = 4;
+static const uint32_t kNumProbeTimeoutsForPathDegradingDelay = 20;
 
 }  // namespace
 
@@ -151,24 +151,24 @@ void QuicSentPacketManager::SetFromConfig(const QuicConfig& config) {
 
   // Initial window.
   if (config.HasClientRequestedIndependentOption(kIW03, perspective)) {
-    initial_congestion_window_ = 3;
-    send_algorithm_->SetInitialCongestionWindowInPackets(3);
+    initial_congestion_window_ = 30;
+    send_algorithm_->SetInitialCongestionWindowInPackets(30);
   }
   if (config.HasClientRequestedIndependentOption(kIW10, perspective)) {
-    initial_congestion_window_ = 10;
-    send_algorithm_->SetInitialCongestionWindowInPackets(10);
+    initial_congestion_window_ = 100;
+    send_algorithm_->SetInitialCongestionWindowInPackets(100);
   }
   if (config.HasClientRequestedIndependentOption(kIW20, perspective)) {
-    initial_congestion_window_ = 20;
-    send_algorithm_->SetInitialCongestionWindowInPackets(20);
+    initial_congestion_window_ = 200;
+    send_algorithm_->SetInitialCongestionWindowInPackets(200);
   }
   if (config.HasClientRequestedIndependentOption(kIW50, perspective)) {
-    initial_congestion_window_ = 50;
-    send_algorithm_->SetInitialCongestionWindowInPackets(50);
+    initial_congestion_window_ = 500;
+    send_algorithm_->SetInitialCongestionWindowInPackets(500);
   }
   if (config.HasClientRequestedIndependentOption(kBWS5, perspective)) {
-    initial_congestion_window_ = 10;
-    send_algorithm_->SetInitialCongestionWindowInPackets(10);
+    initial_congestion_window_ = 100;
+    send_algorithm_->SetInitialCongestionWindowInPackets(100);
   }
 
   if (config.HasClientRequestedIndependentOption(kIGNP, perspective)) {

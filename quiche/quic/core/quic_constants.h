@@ -63,13 +63,13 @@ inline constexpr QuicByteCount kMaxSegmentSize = kDefaultTCPMSS;
 inline constexpr QuicByteCount kMinPacketSizeForVersionNegotiation = 1200;
 
 // We match SPDY's use of 32 (since we'd compete with SPDY).
-inline constexpr QuicPacketCount kInitialCongestionWindow = 32;
+inline constexpr QuicPacketCount kInitialCongestionWindow = 100;
 
 // Do not allow initial congestion window to be greater than 200 packets.
 inline constexpr QuicPacketCount kMaxInitialCongestionWindow = 200;
 
 // Do not allow initial congestion window to be smaller than 10 packets.
-inline constexpr QuicPacketCount kMinInitialCongestionWindow = 10;
+inline constexpr QuicPacketCount kMinInitialCongestionWindow = 40;
 
 // Minimum size of initial flow control window, for both stream and session.
 // This is only enforced when version.AllowsLowFlowControlLimits() is false.
@@ -86,8 +86,7 @@ inline constexpr QuicByteCount kSessionReceiveWindowLimit =
     24 * 1024 * 1024;  // 24 MB
 
 // Minimum size of the CWND, in packets, when doing bandwidth resumption.
-inline constexpr QuicPacketCount kMinCongestionWindowForBandwidthResumption =
-    10;
+inline constexpr QuicPacketCount kMinCongestionWindowForBandwidthResumption = 40;
 
 // Default size of the socket receive buffer in bytes.
 inline constexpr QuicByteCount kDefaultSocketReceiveBuffer = 1024 * 1024;

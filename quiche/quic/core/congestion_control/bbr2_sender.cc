@@ -25,7 +25,8 @@ namespace {
 // Constants based on TCP defaults.
 // The minimum CWND to ensure delayed acks don't reduce bandwidth measurements.
 // Does not inflate the pacing rate.
-const QuicByteCount kDefaultMinimumCongestionWindow = 4 * kMaxSegmentSize;
+//const QuicByteCount kDefaultMinimumCongestionWindow = 4 * kMaxSegmentSize;
+const QuicByteCount kDefaultMinimumCongestionWindow = 40 * kMaxSegmentSize;
 
 const float kInitialPacingGain = 2.885f;
 
